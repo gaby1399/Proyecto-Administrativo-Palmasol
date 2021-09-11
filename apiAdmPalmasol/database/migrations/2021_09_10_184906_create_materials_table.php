@@ -1,0 +1,38 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateMaterialsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('materials', function (Blueprint $table) {
+            $table->unsignedInteger('id');
+            $table->string('nombre');
+            $table->decimal('costo');
+           // $table->unsignedInteger('proveedor_id');
+            $table->foreignId('proveedor_id')->constrained();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('materials', function (Blueprint $table) {
+            $table->dropForeign('materials_proveedor_id_foreign');
+        });
+        Schema::dropIfExists('materials');
+    }
+}
