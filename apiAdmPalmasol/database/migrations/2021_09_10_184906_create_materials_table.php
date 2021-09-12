@@ -17,9 +17,9 @@ class CreateMaterialsTable extends Migration
             $table->unsignedInteger('id');
             $table->string('nombre');
             $table->decimal('costo');
-           // $table->unsignedInteger('proveedor_id');
-            $table->foreignId('proveedor_id')->constrained();
+            $table->unsignedInteger('proveedor_id');
             $table->timestamps();
+            $table->foreign('proveedor_id')->references('id')->on('proveedors');
         });
     }
 
