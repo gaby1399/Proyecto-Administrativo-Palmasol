@@ -16,8 +16,10 @@ class CreateUsuariosTable extends Migration
         Schema::create('usuarios', function (Blueprint $table) {
             $table->unsignedInteger('id');
             $table->string('contraseña');
+            $table->unsignedInteger('rol_id');
             $table->rememberToken();
             $table->timestamps();
+            $table->foreign('rol_id')->references('id')->on('rols');
         });
     }
 
