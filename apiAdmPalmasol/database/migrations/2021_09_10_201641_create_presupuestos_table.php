@@ -14,12 +14,12 @@ class CreatePresupuestosTable extends Migration
     public function up()
     {
         Schema::create('presupuestos', function (Blueprint $table) {
-            $table->unsignedInteger('id');
+            $table->increments('id');
             $table->decimal('subtotal');
             $table->decimal('iva');
             $table->decimal('total');
-            $table->unsignedInteger('material_id');
-            $table->unsignedInteger('cliente_id');
+            $table->integer('material_id');
+            $table->integer('cliente_id');
             $table->foreign('material_id')->references('id')->on('materials');
             $table->foreign('cliente_id')->references('id')->on('clientes');
             $table->timestamps();

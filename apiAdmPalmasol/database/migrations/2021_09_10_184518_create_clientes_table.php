@@ -13,8 +13,8 @@ class CreateClientesTable extends Migration
      */
     public function up()
     {
-        Schema::create('customers', function (Blueprint $table) {
-            $table->unsignedInteger('id');
+        Schema::create('clientes', function (Blueprint $table) {
+            $table->integer('id')->unique();
             $table->string('nombre');
             $table->string('telefono');
             $table->string('direccion');

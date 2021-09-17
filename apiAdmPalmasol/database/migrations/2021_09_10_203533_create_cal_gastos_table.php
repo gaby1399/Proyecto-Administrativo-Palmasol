@@ -14,9 +14,9 @@ class CreateCalGastosTable extends Migration
     public function up()
     {
         Schema::create('cal_gastos', function (Blueprint $table) {
-            $table->unsignedInteger('id');
+            $table->increments('id');
             $table->integer('total');
-            $table->unsignedInteger('material_id');
+            $table->integer('material_id');
             $table->unsignedInteger('presupuesto_id');
             $table->foreign('material_id')->references('id')->on('materials');
             $table->foreign('presupuesto_id')->references('id')->on('presupuestos');
