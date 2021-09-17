@@ -18,8 +18,11 @@ class CreateMaterialsTable extends Migration
             $table->string('nombre');
             $table->decimal('costo');
             $table->unsignedInteger('proveedor_id');
+            //$table->integer('proveedor_id')->unsigned();
+            //$table->foreignId('proveedor_id')->constrained();
+            //algunas que he cambiando y que igual me da error.
             $table->timestamps();
-            $table->foreign('proveedor_id')->references('id')->on('proveedors');
+            $table->foreign('proveedor_id')->references('id')->on('proveedors'); //ERROR
         });
     }
 
