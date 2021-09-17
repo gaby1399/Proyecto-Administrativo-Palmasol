@@ -17,16 +17,16 @@ class Material extends Model
 
     public function presupuestos()
     {
-        return $this->hasMany('App\Models\Presupuestos');
+        return $this->hasMany('App\Models\Presupuesto');
     }
 
     public function calMaterials()
     {
-        return $this->hasMany('App\Models\CalMaterials');
+        return $this->hasMany('App\Models\CalMaterial');
     }
 
     public function calGastos()
     {
-        return $this->hasMany('App\Models\CalGastos');
+        return $this->hasMany('App\Models\CalGasto');
     }
 }

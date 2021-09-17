@@ -21,11 +21,11 @@ class Presupuesto extends Model
 
     public function calMaterials()
     {
-        return $this->hasMany('App\Models\CalMaterials');
+        return $this->hasMany('App\Models\CalMaterial');
     }
 
     public function calGastos()
     {
-        return $this->hasMany('App\Models\CalGastos');
+        return $this->hasMany('App\Models\CalGasto');
     }
 }

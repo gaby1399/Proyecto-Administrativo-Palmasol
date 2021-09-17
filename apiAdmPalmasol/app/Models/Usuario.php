@@ -28,6 +28,6 @@ class User extends Authenticatable
 
     public function rols()
     {
-        return $this->hasMany('App\Models\Usuarios');
+        return $this->belongsTo('App\Models\Rol');
     }
 }

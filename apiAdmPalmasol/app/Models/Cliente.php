@@ -11,11 +11,11 @@ class Cliente extends Model
 
     public function presupuestos()
     {
-        return $this->hasMany('App\Models\Presupuestos');
+        return $this->hasMany('App\Models\Presupuesto');
     }
 
     public function comprobantes()
     {
-        return $this->hasMany('App\Models\Comprobantes');
+        return $this->hasMany('App\Models\Comprobante');
     }
 }

@@ -11,6 +11,6 @@ class Proveedor extends Model
 
     public function materials()
     {
-        return $this->hasMany('App\Models\Materials');
+        return $this->hasMany('App\Models\Material');
     }
 }
