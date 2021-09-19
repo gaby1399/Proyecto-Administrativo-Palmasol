@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ClienteController extends Controller
 {
@@ -14,7 +15,15 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        //
+        try {
+
+            //where('state', true)
+            $cliente = Cliente::orderBy('nombre', 'asc')->get();
+            $response = $cliente;
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**
@@ -35,7 +44,35 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|max:10',
+            'nombre' => 'required|min:5',
+            'telefono' => 'required|numeric',
+            'direccion' => 'required|min:5'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 442);
+        }
+        try {
+            //instancia
+            $cliente = new Cliente();
+            $cliente->id = $request->input('id');
+            $cliente->nombre = $request->input('nombre');
+            $cliente->telefono = $request->input('telefono');
+            $cliente->direccion = $request->input('direccion');
+            // $empleado->status = 1;
+            //guardar
+            if ($cliente->save()) {
+                $response = 'Cliente registrado';
+                return response()->json($response, 201);
+            } else {
+                $response = 'Error durante la creación';
+                return response()->json($response, 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**
@@ -44,9 +81,17 @@ class ClienteController extends Controller
      * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function show(Cliente $cliente)
+    public function show($id)
     {
-        //
+        try {
+
+            //where('state', true)
+            $cliente = Cliente::where('id', $id)->orderBy('nombre', 'asc')->get();
+            $response = $cliente;
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**
@@ -67,9 +112,26 @@ class ClienteController extends Controller
      * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cliente $cliente)
+    public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'required|min:5',
+            'telefono' => 'required|numeric',
+            'direccion' => 'required|min:5'
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 422);
+        }
+        $cliente = Cliente::find($id);
+        $cliente->nombre = $request->input('nombre');
+        $cliente->telefono = $request->input('telefono');
+        $cliente->direccion = $request->input('direccion');
+
+        if ($cliente->update()) {
+            $response = 'Cliente actualizado!';
+            return response()->json($response, 200);
+        }
+        $response = ['msg' => 'Error durante la actulización'];
     }
 
     /**
