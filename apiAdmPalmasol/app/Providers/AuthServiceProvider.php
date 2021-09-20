@@ -29,7 +29,7 @@ class AuthServiceProvider extends ServiceProvider
         Passport::routes();
 
         Passport::tokensCan([
-            'administrador' => 'Descripción permisos administrador',
+            'Administrador' => 'Descripción permisos administrador',
         ]);
     }
 }

@@ -9,7 +9,7 @@ class Rol extends Model
 {
     use HasFactory;
 
-    public function usuario()
+    public function usuarios()
     {
         return $this->hasMany('App\Models\Usuario');
     }

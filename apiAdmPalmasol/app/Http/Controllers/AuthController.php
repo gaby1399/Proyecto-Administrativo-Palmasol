@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Usuario;
 use Illuminate\Http\Request;
+use App\Models\Usuario;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
-
-class UsuarioController extends Controller
+class AuthController extends Controller
 {
-     public function register(Request $request)
+    public function register(Request $request)
     {
         //Reglas de validación
         $validator = Validator::make($request->all(), [
-            'id' => 'required|integer',
+            'id' => 'required',
             'contraseña' => 'required|string|min:6',
             'rol_id' => 'required',
         ]);
@@ -27,17 +26,18 @@ class UsuarioController extends Controller
 
         try {
             //Formato de password
+            $request['id'] = //ERROR
             $request['contraseña'] = Hash::make($request['contraseña']);
             $request['rememberToken'] = Str::random(10);
             //Agregar rol_id en Model User a la propiedad $fillable
-            $usuario = Usuario::create($request->toArray());
+            $user = Usuario::create($request->all());
             //Login usuario creado
-            Usuario::login($usuario);
-            $scope = $usuario->rol->description;
-            $token = $usuario->createToken($usuario->id . '-' . now(), [$scope]);
+            Auth::login($user);
+            $scope = $user->rol->description;
+            $token = $user->createToken($user->id . '-' . now(), [$scope]);
             //Respuesta con token
             $response = [
-                'usuario' => Auth::usuario(),
+                'usuario' => Auth::user(),
                 'token' => $token->accessToken
             ];
             return
@@ -49,13 +49,14 @@ class UsuarioController extends Controller
 
     public function login(Request $request)
     {
-        $validacion = Validator::make($request->all(), [
+        //Validar campos de login
+        $validator = Validator::make($request->all(), [
             'id' => 'required|string|max:10',
-            'contraseña' => 'required|string|min:8',
+            'contraseña' => 'required|string|min:6',
         ]);
         //Retornar mensajes de validación
-        if ($validacion->fails()) {
-            return response()->json($validacion->messages(), 422);
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 422);
         }
 
         try {
@@ -63,12 +64,12 @@ class UsuarioController extends Controller
             $credentials = $request->only('id', 'contraseña');
             //Verificar credenciales por medio de las funcionalidad de autenticación
             if (Auth::attempt($credentials)) {
-                $usuario = Usuario::where('id', $request->id)->with('rol')->first();
-                $scope = $usuario->rol->description;
-                $token = $usuario->createToken($usuario->id . '-' . now(), [$scope]);
+                $user = Usuario::where('id', $request->id)->with('rol')->first();
+                $scope = $user->rol->description;
+                $token = $user->createToken($user->id . '-' . now(), [$scope]);
 
                 $response = [
-                    'usuario' => Auth::usuario(),
+                    'usuario' => Auth::user(),
                     'token' => $token->accessToken
                 ];
                 return

@@ -43,9 +43,9 @@ return [
     ],
 
     'api' => [
-            'driver' => 'passport',
-            'provider' => 'users',
-            'hash' => false,
+        'driver' => 'passport',
+        'provider' => 'users',
+        'hash' => false,
     ],
 
     /*
@@ -91,7 +91,7 @@ return [
     | they have less time to be guessed. You may change this as needed.
     |
     */
-
+    // 'passwords'
     'passwords' => [
         'users' => [
             'provider' => 'users',
