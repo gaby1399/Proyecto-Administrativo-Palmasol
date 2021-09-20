@@ -14,12 +14,12 @@ class CreateComprobantesTable extends Migration
     public function up()
     {
         Schema::create('comprobantes', function (Blueprint $table) {
-            $table->unsignedInteger('id');
+            $table->increments('id');
             $table->decimal('subtotal');
             $table->decimal('iva');
             $table->decimal('total');
-            $table->unsignedInteger('cliente_id');
-            $table->unsignedInteger('tipo_trabajo_id');
+            $table->integer('cliente_id');
+            $table->integer('tipo_trabajo_id');
             $table->foreign('cliente_id')->references('id')->on('clientes');
             $table->foreign('tipo_trabajo_id')->references('id')->on('tipo_trabajos');
             $table->timestamps();

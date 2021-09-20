@@ -16,7 +16,7 @@ class ComprobanteSeeder extends Seeder
         //1
         $comprobante = new \App\Models\Comprobante();
         $comprobante->cliente_id = 102776582;
-        $comprobante->tipoTrabajo_id = 1;
+        $comprobante->tipo_trabajo_id = 1;
         $comprobante->subtotal = 7000;
         $comprobante->iva = 700;
         $comprobante->total = 7700;
@@ -25,7 +25,7 @@ class ComprobanteSeeder extends Seeder
         //1
         $comprobante = new \App\Models\Comprobante();
         $comprobante->cliente_id = 408345654;
-        $comprobante->tipoTrabajo_id = 2;
+        $comprobante->tipo_trabajo_id = 2;
         $comprobante->subtotal = 10000;
         $comprobante->iva = 1000;
         $comprobante->total = 11000;

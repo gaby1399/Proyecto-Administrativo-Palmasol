@@ -14,9 +14,9 @@ class CreateUsuariosTable extends Migration
     public function up()
     {
         Schema::create('usuarios', function (Blueprint $table) {
-            $table->unsignedInteger('id');
+            $table->integer('id')->unique();
             $table->string('contraseña');
-            $table->unsignedInteger('rol_id');
+            $table->integer('rol_id');
             $table->rememberToken();
             $table->timestamps();
             $table->foreign('rol_id')->references('id')->on('rols');
@@ -30,6 +30,9 @@ class CreateUsuariosTable extends Migration
      */
     public function down()
     {
+        Schema::table('usuarios', function (Blueprint $table) {
+            $table->dropForeign('usuarios_rol_id_foreign');
+        });
         Schema::dropIfExists('usuarios');
     }
 }

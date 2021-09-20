@@ -12,6 +12,41 @@ use Illuminate\Support\Facades\Auth;
 
 class UsuarioController extends Controller
 {
+     public function register(Request $request)
+    {
+        //Reglas de validación
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|integer',
+            'contraseña' => 'required|string|min:6',
+            'rol_id' => 'required',
+        ]);
+        //Retornar mensajes de validación
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 422);
+        }
+
+        try {
+            //Formato de password
+            $request['contraseña'] = Hash::make($request['contraseña']);
+            $request['rememberToken'] = Str::random(10);
+            //Agregar rol_id en Model User a la propiedad $fillable
+            $usuario = Usuario::create($request->toArray());
+            //Login usuario creado
+            Usuario::login($usuario);
+            $scope = $usuario->rol->description;
+            $token = $usuario->createToken($usuario->id . '-' . now(), [$scope]);
+            //Respuesta con token
+            $response = [
+                'usuario' => Auth::usuario(),
+                'token' => $token->accessToken
+            ];
+            return
+                response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
+    }
+
     public function login(Request $request)
     {
         $validacion = Validator::make($request->all(), [

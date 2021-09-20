@@ -14,10 +14,10 @@ class CreateMaterialsTable extends Migration
     public function up()
     {
         Schema::create('materials', function (Blueprint $table) {
-            $table->unsignedInteger('id');
+            $table->integer('id')->unique();
             $table->string('nombre');
             $table->decimal('costo');
-            $table->unsignedInteger('proveedor_id');
+            $table->integer('proveedor_id');
             //$table->integer('proveedor_id')->unsigned();
             //$table->foreignId('proveedor_id')->constrained();
             //algunas que he cambiando y que igual me da error.
