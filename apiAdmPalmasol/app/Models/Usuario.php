@@ -9,11 +9,12 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Usuario extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
 
     protected $fillable = [
         'id',
-        'contraseña',
+        'email',
+        'password',
         'rol_id',
     ];
 
@@ -23,7 +24,7 @@ class Usuario extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'contraseña',
+        'password',
         'remember_token',
     ];
 

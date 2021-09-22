@@ -15,8 +15,9 @@ class AuthController extends Controller
     {
         //Reglas de validación
         $validator = Validator::make($request->all(), [
-            'id' => 'required',
-            'contraseña' => 'required|string|min:6',
+            'id' => 'required|integer',
+            'email' => 'required|string|email|max:255|unique:usuarios',
+            'password' => 'required|string|min:6',
             'rol_id' => 'required',
         ]);
         //Retornar mensajes de validación
@@ -26,19 +27,19 @@ class AuthController extends Controller
 
         try {
             //Formato de password
-            $request['id'] = //ERROR
-            $request['contraseña'] = Hash::make($request['contraseña']);
-            $request['rememberToken'] = Str::random(10);
+            // $request['password'] = $request['contraseña'];
+            $request['password'] = Hash::make($request['password']);
+            $request['remember_token'] = Str::random(10);
             //Agregar rol_id en Model User a la propiedad $fillable
             $user = Usuario::create($request->all());
             //Login usuario creado
             Auth::login($user);
-            $scope = $user->rol->description;
-            $token = $user->createToken($user->id . '-' . now(), [$scope]);
+            $scope = $user->rol->descripcion;
+            $token = $user->createToken($user->email . '-' . now(), [$scope]);
             //Respuesta con token
             $response = [
                 'usuario' => Auth::user(),
-                'token' => $token->accessToken
+                'token' => $token->accessToken,
             ];
             return
                 response()->json($response, 200);
@@ -51,8 +52,8 @@ class AuthController extends Controller
     {
         //Validar campos de login
         $validator = Validator::make($request->all(), [
-            'id' => 'required|string|max:10',
-            'contraseña' => 'required|string|min:6',
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|min:6',
         ]);
         //Retornar mensajes de validación
         if ($validator->fails()) {
@@ -60,17 +61,18 @@ class AuthController extends Controller
         }
 
         try {
+            //$request['password'] = $request['contraseña'];
             //Credenciales para el login
-            $credentials = $request->only('id', 'contraseña');
+            $credentials = $request->only('email', 'password');
             //Verificar credenciales por medio de las funcionalidad de autenticación
             if (Auth::attempt($credentials)) {
-                $user = Usuario::where('id', $request->id)->with('rol')->first();
-                $scope = $user->rol->description;
-                $token = $user->createToken($user->id . '-' . now(), [$scope]);
+                $user = Usuario::where('email', $request->email)->with('rol')->first();
+                $scope = $user->rol->descripcion;
+                $token = $user->createToken($user->email . '-' . now(), [$scope])->accessToken;
 
                 $response = [
                     'usuario' => Auth::user(),
-                    'token' => $token->accessToken
+                    'token' => $token,
                 ];
                 return
                     response()->json($response, 200);
