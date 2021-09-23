@@ -42,6 +42,12 @@ return [
         ],
     ],
 
+    'api' => [
+        'driver' => 'passport',
+        'provider' => 'users',
+        'hash' => false,
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | User Providers
@@ -62,7 +68,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Usuario::class,
         ],
 
         // 'users' => [
@@ -85,7 +91,7 @@ return [
     | they have less time to be guessed. You may change this as needed.
     |
     */
-
+    // 'passwords'
     'passwords' => [
         'users' => [
             'provider' => 'users',

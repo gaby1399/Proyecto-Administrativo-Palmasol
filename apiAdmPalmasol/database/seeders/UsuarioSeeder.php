@@ -15,9 +15,9 @@ class UsuarioSeeder extends Seeder
     {
         //1
         $usuario = new \App\Models\Usuario();
-        $usuario->id = 108742596;
+        $usuario->id = 1;
         $usuario->contraseña = 'adm123';
-        $usuario->rol_id=1;
+        $usuario->rol_id = 1;
         $usuario->save();
     }
 }
