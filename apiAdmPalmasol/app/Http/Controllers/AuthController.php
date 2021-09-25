@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
+
 class AuthController extends Controller
 {
     public function register(Request $request)
@@ -31,16 +32,19 @@ class AuthController extends Controller
             $request['password'] = Hash::make($request['password']);
             $request['remember_token'] = Str::random(10);
             //Agregar rol_id en Model User a la propiedad $fillable
-            $user = Usuario::create($request->all());
-            //Login usuario creado
+            $rem = $request['remember_token'];
+            $user = Usuario::create($request->toArray());
+            $user->rememberToken = $rem;
             Auth::login($user);
             $scope = $user->rol->descripcion;
-            $token = $user->createToken($user->email . '-' . now(), [$scope]);
+            $token = $user->createToken($user->email . '-' . now(), [$scope])->accessToken;
             //Respuesta con token
             $response = [
                 'usuario' => Auth::user(),
-                'token' => $token->accessToken,
+                'token' => $token,
+                'data' => $rem,
             ];
+
             return
                 response()->json($response, 200);
         } catch (\Exception $e) {
