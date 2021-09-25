@@ -42,6 +42,12 @@ return [
         ],
     ],
 
+    'api' => [
+        'driver' => 'passport',
+        'provider' => 'users',
+        'hash' => false,
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | User Providers
@@ -85,7 +91,7 @@ return [
     | they have less time to be guessed. You may change this as needed.
     |
     */
-
+    // 'passwords'
     'passwords' => [
         'users' => [
             'provider' => 'users',
