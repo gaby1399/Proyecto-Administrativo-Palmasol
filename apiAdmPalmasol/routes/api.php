@@ -34,7 +34,8 @@ Route::group(['prefix' => 'palmasol'], function () {
     Route::group([
         'prefix' => 'empleado'
     ], function ($router) {
-        // Route::get('all', [EmpleadoController::class, 'all'])->middleware(['auth:api', 'scopes:administrador']);
+        Route::get('todos', [EmpleadoController::class, 'all']);
+        //->middleware(['auth:api', 'scopes:administrador']);
         Route::get('', [EmpleadoController::class, 'index']); //->middleware(['auth:api', 'scopes:administrador']);
         Route::post('crear', [EmpleadoController::class, 'store']); //->middleware(['auth:api']);
         Route::patch('modificar/{id}', [EmpleadoController::class, 'update']); //->middleware(['auth:api', 'scopes:administrador']);
@@ -44,7 +45,8 @@ Route::group(['prefix' => 'palmasol'], function () {
     Route::group([
         'prefix' => 'cliente'
     ], function ($router) {
-        // Route::get('all', [ClienteController::class, 'all'])->middleware(['auth:api', 'scopes:administrador']);
+        Route::get('todos', [ClienteController::class, 'all']);
+        //->middleware(['auth:api', 'scopes:administrador']);
         Route::get('', [ClienteController::class, 'index']); //->middleware(['auth:api', 'scopes:administrador']);
         Route::post('crear', [ClienteController::class, 'store']); //->middleware(['auth:api']);
         Route::patch('modificar/{id}', [ClienteController::class, 'update']); //->middleware(['auth:api', 'scopes:administrador']);

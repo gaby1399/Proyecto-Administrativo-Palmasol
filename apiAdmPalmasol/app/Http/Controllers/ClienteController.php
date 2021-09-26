@@ -18,8 +18,21 @@ class ClienteController extends Controller
         try {
 
             //where('state', true)
+            $cliente = Cliente::where('estado', true)->orderBy('nombre', 'asc')->get();
+            $response = $cliente;
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
+    }
+
+    public function all()
+    {
+        try {
+
             $cliente = Cliente::orderBy('nombre', 'asc')->get();
             $response = $cliente;
+
             return response()->json($response, 200);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 422);
@@ -61,7 +74,7 @@ class ClienteController extends Controller
             $cliente->nombre = $request->input('nombre');
             $cliente->telefono = $request->input('telefono');
             $cliente->direccion = $request->input('direccion');
-            // $empleado->status = 1;
+            $cliente->estado = 1;
             //guardar
             if ($cliente->save()) {
                 $response = 'Cliente registrado';

@@ -19,6 +19,7 @@ class ClienteSeeder extends Seeder
         $cliente->nombre = 'Clara Monge';
         $cliente->telefono = '86491278';
         $cliente->direccion = 'Cartago';
+        $cliente->estado = true;
         $cliente->save();
 
         //2
@@ -27,6 +28,7 @@ class ClienteSeeder extends Seeder
         $cliente->nombre = 'Karla Solano';
         $cliente->telefono = '84157236';
         $cliente->direccion = 'Heredia';
+        $cliente->estado = false;
         $cliente->save();
 
         //3
@@ -35,7 +37,7 @@ class ClienteSeeder extends Seeder
         $cliente->nombre = 'Jose Mena';
         $cliente->telefono = '84157236';
         $cliente->direccion = 'San Jóse';
+        $cliente->estado = true;
         $cliente->save();
-
     }
 }

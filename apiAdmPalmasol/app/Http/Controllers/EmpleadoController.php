@@ -18,8 +18,21 @@ class EmpleadoController extends Controller
         try {
 
             //where('state', true)
-            $product = Empleado::orderBy('nombre', 'asc')->get();
-            $response = $product;
+            $empleado = Empleado::where('estado', true)->orderBy('nombre', 'asc')->get();
+            $response = $empleado;
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
+    }
+
+    public function all()
+    {
+        try {
+
+            $empleado = Empleado::orderBy('nombre', 'asc')->get();
+            $response = $empleado;
+
             return response()->json($response, 200);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 422);
@@ -48,7 +61,7 @@ class EmpleadoController extends Controller
             'id' => 'required|max:10',
             'nombre' => 'required|min:5',
             'telefono' => 'required|numeric',
-            'direccion' => 'required|min:5'
+            'direccion' => 'required|min:5',
         ]);
 
         if ($validator->fails()) {
@@ -61,7 +74,7 @@ class EmpleadoController extends Controller
             $empleado->nombre = $request->input('nombre');
             $empleado->telefono = $request->input('telefono');
             $empleado->direccion = $request->input('direccion');
-            // $empleado->status = 1;
+            $empleado->estado = 1;
             //guardar
             if ($empleado->save()) {
                 $response = 'Empleado creado';
@@ -117,7 +130,8 @@ class EmpleadoController extends Controller
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|min:5',
             'telefono' => 'required|numeric',
-            'direccion' => 'required|min:5'
+            'direccion' => 'required|min:5',
+            'estado' => 'required'
         ]);
         if ($validator->fails()) {
             return response()->json($validator->messages(), 422);
@@ -126,6 +140,7 @@ class EmpleadoController extends Controller
         $empleado->nombre = $request->input('nombre');
         $empleado->telefono = $request->input('telefono');
         $empleado->direccion = $request->input('direccion');
+        $empleado->estado = $request->input('estado');
 
         if ($empleado->update()) {
             $response = 'Empleado actualizado!';

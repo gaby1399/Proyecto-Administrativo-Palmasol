@@ -19,6 +19,7 @@ class EmpleadoSeeder extends Seeder
         $empleado->nombre = 'Isaac Jimenez';
         $empleado->telefono = '89457266';
         $empleado->direccion = 'Alajuela';
+        $empleado->estado = true;
         $empleado->save();
 
         //2
@@ -27,6 +28,7 @@ class EmpleadoSeeder extends Seeder
         $empleado->nombre = 'Rocio Segura';
         $empleado->telefono = '62581473';
         $empleado->direccion = 'Heredia';
+        $empleado->estado = true;
         $empleado->save();
 
         //3
@@ -35,6 +37,7 @@ class EmpleadoSeeder extends Seeder
         $empleado->nombre = 'Alicia Hernandez';
         $empleado->telefono = '66851299';
         $empleado->direccion = 'San Jóse';
+        $empleado->estado = true;
         $empleado->save();
 
         //4
@@ -43,6 +46,7 @@ class EmpleadoSeeder extends Seeder
         $empleado->nombre = 'Pedro Murillo';
         $empleado->telefono = '84875623';
         $empleado->direccion = 'San Jóse';
+        $empleado->estado = false;
         $empleado->save();
     }
 }
