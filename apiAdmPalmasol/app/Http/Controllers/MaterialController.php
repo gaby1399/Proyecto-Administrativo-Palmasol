@@ -21,7 +21,7 @@ class MaterialController extends Controller
         try {
             /*  Listado de materiales
             */
-            $materiales = Material::orderBy('nombre', 'asc')->with(["proveedor"])->get();
+            $materiales = Material::where('estado', true)->orderBy('nombre', 'asc')->with(["proveedor"])->get();
             $response = $materiales;
 
             return response()->json($response, 200);

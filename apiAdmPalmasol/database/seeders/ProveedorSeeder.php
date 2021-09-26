@@ -19,6 +19,7 @@ class ProveedorSeeder extends Seeder
         $proveedor->nombre = 'María Jimenez';
         $proveedor->telefono = '60682554';
         $proveedor->direccion = 'Alajuela';
+        $proveedor->estado = true;
         $proveedor->save();
 
         //2
@@ -27,6 +28,7 @@ class ProveedorSeeder extends Seeder
         $proveedor->nombre = 'Marco Segura';
         $proveedor->telefono = '84157236';
         $proveedor->direccion = 'Heredia';
+        $proveedor->estado = true;
         $proveedor->save();
 
         //3
@@ -35,6 +37,7 @@ class ProveedorSeeder extends Seeder
         $proveedor->nombre = 'Carlos Hernandez';
         $proveedor->telefono = '87256695';
         $proveedor->direccion = 'San Jóse';
+        $proveedor->estado = true;
         $proveedor->save();
 
         //4
@@ -43,6 +46,7 @@ class ProveedorSeeder extends Seeder
         $proveedor->nombre = 'Elsa Murillo';
         $proveedor->telefono = '84159923';
         $proveedor->direccion = 'Alajuela';
+        $proveedor->estado = true;
         $proveedor->save();
     }
 }

@@ -21,7 +21,7 @@ class ProveedorController extends Controller
         try {
             /*  Listado de proveedores
             */
-            $proveedor = Proveedor::orderBy('nombre', 'asc')->get();
+            $proveedor = Proveedor::where('estado', true)->orderBy('nombre', 'asc')->get();
             $response = $proveedor;
 
             return response()->json($response, 200);
