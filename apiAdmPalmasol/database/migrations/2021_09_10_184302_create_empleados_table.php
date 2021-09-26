@@ -15,6 +15,7 @@ class CreateEmpleadosTable extends Migration
     {
         Schema::create('empleados', function (Blueprint $table) {
             $table->integer('id')->unique();
+            $table->boolean('estado');
             $table->string('nombre');
             $table->string('telefono');
             $table->string('direccion');
