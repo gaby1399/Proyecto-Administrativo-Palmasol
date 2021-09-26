@@ -16,6 +16,19 @@ class ProveedorController extends Controller
     {
         //
     }
+    public function all()
+    {
+        try {
+            /*  Listado de proveedores
+            */
+            $proveedor = Proveedor::orderBy('nombre', 'asc')->get();
+            $response = $proveedor;
+
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
+    }
 
     /**
      * Show the form for creating a new resource.
