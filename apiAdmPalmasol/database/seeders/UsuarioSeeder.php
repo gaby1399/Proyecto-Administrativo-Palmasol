@@ -16,7 +16,8 @@ class UsuarioSeeder extends Seeder
         //1
         $usuario = new \App\Models\Usuario();
         $usuario->id = 1;
-        $usuario->contraseña = 'adm123';
+        $usuario->email="empresapalmasol@admin.com";
+        $usuario->password = 'adm123';
         $usuario->rol_id = 1;
         $usuario->save();
     }

@@ -14,7 +14,20 @@ class MaterialController extends Controller
      */
     public function index()
     {
-        //
+
+    }
+    public function all()
+    {
+        try {
+            /*  Listado de materiales
+            */
+            $materiales = Material::orderBy('nombre', 'asc')->with(["proveedor"])->get();
+            $response = $materiales;
+
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**
