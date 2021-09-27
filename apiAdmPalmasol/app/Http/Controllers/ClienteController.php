@@ -99,7 +99,7 @@ class ClienteController extends Controller
         try {
 
             //where('state', true)
-            $cliente = Cliente::where('id', $id)->orderBy('nombre', 'asc')->get();
+            $cliente = Cliente::where('id', $id)->orderBy('nombre', 'asc')->first();
             $response = $cliente;
             return response()->json($response, 200);
         } catch (\Exception $e) {
