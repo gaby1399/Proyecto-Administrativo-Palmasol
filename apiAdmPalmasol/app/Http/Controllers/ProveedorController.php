@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Proveedor;
 use Illuminate\Http\Request;
+use Validator;
+use Input;
 
 class ProveedorController extends Controller
 {
@@ -56,8 +58,37 @@ class ProveedorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|numeric',
+            'nombre' => 'required|min:5',
+            'telefono' => 'required|numeric',
+            'direccion' => 'required|min:5',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 442);
+        }
+        try {
+            //instancia
+            $prov = new Proveedor();
+            $prov->id = $request->input('id');
+            $prov->nombre = $request->input('nombre');
+            $prov->telefono = $request->input('telefono');
+            $prov->direccion = $request->input('direccion');
+            $prov->estado = true;
+            //guardar
+            if ($prov->save()) {
+                $response = 'Proveedor registrado';
+                return response()->json($response, 201);
+            } else {
+                $response = 'Error durante la creación';
+                return response()->json($response, 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
+
 
     /**
      * Display the specified resource.
