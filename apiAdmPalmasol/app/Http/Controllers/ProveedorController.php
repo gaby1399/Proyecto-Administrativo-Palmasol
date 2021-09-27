@@ -126,9 +126,15 @@ class ProveedorController extends Controller
      * @param  \App\Models\Proveedor  $proveedor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Proveedor $proveedor)
+    public function update(Request $request, $id)
     {
-        //
+        $id = $request->input('id');
+        $prov = Proveedor::find($id);
+        $prov->nombre = $request->input('nombre');
+        $prov->direccion= $request->input('direccion');
+        $prov->estado = $request->input('estado');
+        $prov->telefono= $request->input('telefono');
+        $prov->save();
     }
 
     /**

@@ -131,6 +131,9 @@ class MaterialController extends Controller
     {
         $id = $request->input('id');
         $mat = Material::find($id);
+        $mat->nombre =$request->input('nombre');
+        $mat->costo = $request->input('costo');
+        $mat->estado = $request->input('estado');
         $mat->proveedor_id = $request->input('proveedor_id');
         $mat->save();
     }
