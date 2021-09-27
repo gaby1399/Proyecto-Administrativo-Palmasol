@@ -127,9 +127,12 @@ class MaterialController extends Controller
      * @param  \App\Models\Material  $material
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Material $material)
+    public function update(Request $request, $id)
     {
-        //
+        $id = $request->input('id');
+        $mat = Material::find($id);
+        $mat->proveedor_id = $request->input('proveedor_id');
+        $mat->save();
     }
 
     /**
