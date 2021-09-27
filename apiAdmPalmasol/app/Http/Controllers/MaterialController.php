@@ -14,14 +14,23 @@ class MaterialController extends Controller
      */
     public function index()
     {
+        try {
 
+            //where('state', true)
+            $material = Material::where('estado', true)->orderBy('nombre', 'asc')-> with(["proveedor"])->get();
+            $response = $material;
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
+
     public function all()
     {
         try {
             /*  Listado de materiales
             */
-            $materiales = Material::where('estado', true)->orderBy('nombre', 'asc')->with(["proveedor"])->get();
+            $materiales = Material::orderBy('nombre', 'asc')->with(["proveedor"])->get();
             $response = $materiales;
 
             return response()->json($response, 200);

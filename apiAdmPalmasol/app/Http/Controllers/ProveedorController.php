@@ -14,14 +14,22 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-        //
+        try {
+
+            //where('state', true)
+            $proveedor = Proveedor::where('estado', true)->orderBy('nombre', 'asc')->get();
+            $response = $proveedor;
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
     public function all()
     {
         try {
             /*  Listado de proveedores
             */
-            $proveedor = Proveedor::where('estado', true)->orderBy('nombre', 'asc')->get();
+            $proveedor = Proveedor::orderBy('nombre', 'asc')->get();
             $response = $proveedor;
 
             return response()->json($response, 200);
