@@ -18,8 +18,8 @@ class CreateComprobantesTable extends Migration
             $table->decimal('subtotal');
             $table->decimal('iva');
             $table->decimal('total');
-            $table->integer('cliente_id');
-            $table->integer('tipo_trabajo_id');
+            $table->unsignedBigInteger('cliente_id');
+            $table->unsignedBigInteger('tipo_trabajo_id');
             $table->foreign('cliente_id')->references('id')->on('clientes');
             $table->foreign('tipo_trabajo_id')->references('id')->on('tipo_trabajos');
             $table->timestamps();
