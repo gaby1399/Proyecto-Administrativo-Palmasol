@@ -15,6 +15,7 @@ class CreateMaterialsTable extends Migration
     {
         Schema::create('materials', function (Blueprint $table) {
             $table->id();
+            $table->boolean('estado');
             $table->string('nombre');
             $table->decimal('costo');
             $table->unsignedBigInteger('proveedor_id');

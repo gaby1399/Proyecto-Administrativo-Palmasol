@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    public function register(Request $request)//Crear
     {
         //Reglas de validación
         $validator = Validator::make($request->all(), [
@@ -34,14 +34,15 @@ class AuthController extends Controller
             //Agregar rol_id en Model User a la propiedad $fillable
             $rem = $request['remember_token'];
             $user = Usuario::create($request->toArray());
-            $user->rememberToken = $rem;
+            // $user->remember_token = $rem;
             Auth::login($user);
             $scope = $user->rol->descripcion;
-            $token = $user->createToken($user->email . '-' . now(), [$scope])->accessToken;
+            $token = $user->createToken($user->email . '-' . now(), [$scope]);
+            //->token
             //Respuesta con token
             $response = [
                 'usuario' => Auth::user(),
-                'token' => $token,
+                'token' => $token->accessToken,
                 'data' => $rem,
             ];
 

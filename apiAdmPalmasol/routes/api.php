@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\ProveedorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +34,14 @@ Route::group(['prefix' => 'palmasol'], function () {
     });
 
     Route::group([
+        'prefix' => 'usuario'
+    ], function ($router) {
+        Route::get('todos', [UsuarioController::class, 'all']);
+        Route::patch('actualizar/{id}', [UsuarioController::class, 'updatePassword']);
+        Route::post('eliminar/{id}', [UsuarioController::class, 'delete']);
+    });
+
+    Route::group([
         'prefix' => 'empleado'
     ], function ($router) {
         Route::get('todos', [EmpleadoController::class, 'all']);
@@ -51,5 +61,40 @@ Route::group(['prefix' => 'palmasol'], function () {
         Route::post('crear', [ClienteController::class, 'store']); //->middleware(['auth:api']);
         Route::patch('modificar/{id}', [ClienteController::class, 'update']); //->middleware(['auth:api', 'scopes:administrador']);
         Route::get('/{id}', [ClienteController::class, 'show']); //->middleware(['auth:api', 'scopes:administrador']);
+    });
+
+    Route::group(['prefix' => 'material'], function ($router) {
+        Route::get('', [MaterialController::class, 'index']);
+        Route::get(
+            'all',
+            [MaterialController::class, 'all']
+        );
+        Route::post('', [MaterialController::class, 'store']);
+        Route::patch(
+            '/{id}',
+            [
+                MaterialController::class,
+                'update'
+            ]
+        );
+        Route::get('/{id}', [MaterialController::class, 'show']);
+    });
+
+
+    Route::group(['prefix' => 'proveedor'], function ($router) {
+        Route::get('', [ProveedorController::class, 'index']);
+        Route::get(
+            'all',
+            [ProveedorController::class, 'all']
+        );
+        Route::post('', [ProveedorController::class, 'store']);
+        Route::patch(
+            '/{id}',
+            [
+                ProveedorController::class,
+                'update'
+            ]
+        );
+        Route::get('/{id}', [ProveedorController::class, 'show']);
     });
 });

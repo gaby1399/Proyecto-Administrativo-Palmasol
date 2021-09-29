@@ -74,7 +74,7 @@ class ClienteController extends Controller
             $cliente->nombre = $request->input('nombre');
             $cliente->telefono = $request->input('telefono');
             $cliente->direccion = $request->input('direccion');
-            $cliente->estado = 1;
+            $cliente->estado = true;
             //guardar
             if ($cliente->save()) {
                 $response = 'Cliente registrado';
@@ -130,7 +130,8 @@ class ClienteController extends Controller
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|min:5',
             'telefono' => 'required|numeric',
-            'direccion' => 'required|min:5'
+            'direccion' => 'required|min:5',
+            'estado' => 'required'
         ]);
         if ($validator->fails()) {
             return response()->json($validator->messages(), 422);
@@ -139,6 +140,7 @@ class ClienteController extends Controller
         $cliente->nombre = $request->input('nombre');
         $cliente->telefono = $request->input('telefono');
         $cliente->direccion = $request->input('direccion');
+        $cliente->estado = $request->input('estado');
 
         if ($cliente->update()) {
             $response = 'Cliente actualizado!';
