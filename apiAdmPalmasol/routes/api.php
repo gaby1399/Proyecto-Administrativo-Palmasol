@@ -54,9 +54,13 @@ Route::group(['prefix' => 'palmasol'], function () {
         Route::patch('modificar/{id}', [ClienteController::class, 'update']); //->middleware(['auth:api', 'scopes:administrador']);
         Route::get('/{id}', [ClienteController::class, 'show']); //->middleware(['auth:api', 'scopes:administrador']);
     });
+
     Route::group(['prefix' => 'material'], function ($router) {
         Route::get('', [MaterialController::class, 'index']);
-        Route::get('all', [MaterialController::class, 'all']);
+        Route::get(
+            'all',
+            [MaterialController::class, 'all']
+        );
         Route::post('', [MaterialController::class, 'store']);
         Route::patch(
             '/{id}',
@@ -67,9 +71,14 @@ Route::group(['prefix' => 'palmasol'], function () {
         );
         Route::get('/{id}', [MaterialController::class, 'show']);
     });
+
+
     Route::group(['prefix' => 'proveedor'], function ($router) {
         Route::get('', [ProveedorController::class, 'index']);
-        Route::get('all', [ProveedorController::class, 'all']);
+        Route::get(
+            'all',
+            [ProveedorController::class, 'all']
+        );
         Route::post('', [ProveedorController::class, 'store']);
         Route::patch(
             '/{id}',
@@ -80,5 +89,4 @@ Route::group(['prefix' => 'palmasol'], function () {
         );
         Route::get('/{id}', [ProveedorController::class, 'show']);
     });
-
 });

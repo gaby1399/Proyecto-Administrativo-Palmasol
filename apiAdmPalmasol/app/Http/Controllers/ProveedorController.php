@@ -131,9 +131,9 @@ class ProveedorController extends Controller
         $id = $request->input('id');
         $prov = Proveedor::find($id);
         $prov->nombre = $request->input('nombre');
-        $prov->direccion= $request->input('direccion');
+        $prov->direccion = $request->input('direccion');
         $prov->estado = $request->input('estado');
-        $prov->telefono= $request->input('telefono');
+        $prov->telefono = $request->input('telefono');
         $prov->save();
     }
 

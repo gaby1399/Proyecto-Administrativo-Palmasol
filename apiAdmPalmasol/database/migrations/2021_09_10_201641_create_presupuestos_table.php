@@ -18,8 +18,8 @@ class CreatePresupuestosTable extends Migration
             $table->decimal('subtotal');
             $table->decimal('iva');
             $table->decimal('total');
-            $table->integer('material_id');
-            $table->integer('cliente_id');
+            $table->unsignedBigInteger('material_id');
+            $table->unsignedBigInteger('cliente_id');
             $table->foreign('material_id')->references('id')->on('materials');
             $table->foreign('cliente_id')->references('id')->on('clientes');
             $table->timestamps();

@@ -30,18 +30,18 @@ class AuthController extends Controller
             //Formato de password
             // $request['password'] = $request['contraseña'];
             $request['password'] = Hash::make($request['password']);
-            $request['remember_token'] = Str::random(10);
+            $request['rememberToken'] = Str::random(10);
             //Agregar rol_id en Model User a la propiedad $fillable
-            $rem = $request['remember_token'];
+            $rem = $request['rememberToken'];
             $user = Usuario::create($request->toArray());
-            $user->rememberToken = $rem;
+          //  $user->rememberToken = $rem;
             Auth::login($user);
             $scope = $user->rol->descripcion;
-            $token = $user->createToken($user->email . '-' . now(), [$scope])->accessToken;
+            $token = $user->createToken($user->email . '-' . now(), [$scope]);
             //Respuesta con token
             $response = [
                 'usuario' => Auth::user(),
-                'token' => $token,
+                'token' => $token->accessToken,
                 'data' => $rem,
             ];
 

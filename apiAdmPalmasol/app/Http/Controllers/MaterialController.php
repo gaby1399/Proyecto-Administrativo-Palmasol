@@ -19,7 +19,7 @@ class MaterialController extends Controller
         try {
 
             //where('state', true)
-            $material = Material::where('estado', true)->orderBy('nombre', 'asc')-> with(["proveedor"])->get();
+            $material = Material::where('estado', true)->orderBy('nombre', 'asc')->with(["proveedor"])->get();
             $response = $material;
             return response()->json($response, 200);
         } catch (\Exception $e) {
@@ -101,7 +101,7 @@ class MaterialController extends Controller
     {
         try {
             //Obtener un producto
-            $mat = Material::where('id', $id)->with(["proveedor", ])->first();
+            $mat = Material::where('id', $id)->with(["proveedor",])->first();
             $response = $mat;
             return response()->json($response, 200);
         } catch (\Exception $e) {
@@ -131,7 +131,7 @@ class MaterialController extends Controller
     {
         $id = $request->input('id');
         $mat = Material::find($id);
-        $mat->nombre =$request->input('nombre');
+        $mat->nombre = $request->input('nombre');
         $mat->costo = $request->input('costo');
         $mat->estado = $request->input('estado');
         $mat->proveedor_id = $request->input('proveedor_id');
