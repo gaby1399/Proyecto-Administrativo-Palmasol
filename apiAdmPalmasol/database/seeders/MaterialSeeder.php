@@ -19,6 +19,7 @@ class MaterialSeeder extends Seeder
         $material->nombre = 'Cemento';
         $material->costo = 5000;
         $material->proveedor_id = 402770289;
+        $material->estado = 1;
         $material->save();
 
         //2
@@ -27,6 +28,7 @@ class MaterialSeeder extends Seeder
         $material->nombre = 'Concreto';
         $material->costo = 2000;
         $material->proveedor_id = 402770289;
+        $material->estado = 1;
         $material->save();
 
         //3
@@ -35,6 +37,7 @@ class MaterialSeeder extends Seeder
         $material->nombre = 'Arena';
         $material->costo = 3000;
         $material->proveedor_id = 108820654;
+        $material->estado = 1;
         $material->save();
     }
 }
