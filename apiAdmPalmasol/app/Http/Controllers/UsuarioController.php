@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
@@ -11,7 +13,10 @@ class UsuarioController extends Controller
     {
         try {
 
-            $usuario = Usuario::orderBy('email', 'asc')->get();
+            $usuario = Usuario::orderBy('id', 'asc')->with(['rol'])->get();;
+            $response = $usuario;
+
+            return response()->json($response, 200);
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 422);
         }
@@ -33,22 +38,44 @@ class UsuarioController extends Controller
         }
     }
 
-    public function updatePassword(Request $request, $id)
+    public function updatePassword(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'password' => 'required|string|min:6',
+        try {
+            //validar si sabe la contraseña anterior
+            $validator = Validator::make($request->all(), [
+                'email' => 'required|string|email|max:255',
+                'password' => 'required|string|min:6',
+                'passwordAnterior' => 'required|string|min:6',
+            ]);
+            if ($validator->fails()) {
+                return response()->json($validator->messages(), 422);
+            }
 
-        ]);
-        if ($validator->fails()) {
-            return response()->json($validator->messages(), 422);
-        }
-        $cliente = Cliente::find($id);
-        $cliente->nombre = $request->input('nombre');
+            $usuario = Usuario::where('email', $request['email'])->orderBy('id', 'asc')->first();
 
-        if ($cliente->update()) {
-            $response = 'Contraseña actualizado!';
-            return response()->json($response, 200);
+            if ($usuario == null) {
+                $response =false;
+                return response()->json($response, 200);
+            }
+
+
+            // $usuario->password = $request->input('password');
+
+            if (Hash::check($request['passwordAnterior'], $usuario->password)) {
+
+                $request['password'] = Hash::make($request['password']);
+                $usuario->password = $request->input('password');
+            } else {
+                $response = false;
+                return response()->json($response, 200);
+            }
+
+            if ($usuario->update()) {
+                $response = 'Contraseña actualizado!';
+                return response()->json($response, 200);
+            }
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
         }
-        $response = ['msg' => 'Error durante la actulización'];
     }
 }

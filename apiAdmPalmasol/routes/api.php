@@ -5,9 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\ProveedorController;
-
+use App\Http\Controllers\RolController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -37,8 +38,14 @@ Route::group(['prefix' => 'palmasol'], function () {
         'prefix' => 'usuario'
     ], function ($router) {
         Route::get('todos', [UsuarioController::class, 'all']);
-        Route::patch('actualizar/{id}', [UsuarioController::class, 'updatePassword']);
+        Route::post('actualizar', [UsuarioController::class, 'updatePassword']);
         Route::post('eliminar/{id}', [UsuarioController::class, 'delete']);
+    });
+
+    Route::group([
+        'prefix' => 'rol'
+    ], function ($router) {
+        Route::get('', [RolController::class, 'index']);
     });
 
     Route::group([
