@@ -99,7 +99,7 @@ class EmpleadoController extends Controller
         try {
 
             //where('state', true)
-            $empleado = Empleado::where('id', $id)->orderBy('nombre', 'asc')->get();
+            $empleado = Empleado::where('id', $id)->orderBy('nombre', 'asc')->first();
             $response = $empleado;
             return response()->json($response, 200);
         } catch (\Exception $e) {

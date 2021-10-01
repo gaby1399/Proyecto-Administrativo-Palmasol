@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Proveedor;
 use Illuminate\Http\Request;
+use Validator;
+use Input;
 
 class ProveedorController extends Controller
 {
@@ -14,7 +16,28 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-        //
+        try {
+
+            //where('state', true)
+            $proveedor = Proveedor::where('estado', true)->orderBy('nombre', 'asc')->get();
+            $response = $proveedor;
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
+    }
+    public function all()
+    {
+        try {
+            /*  Listado de proveedores
+            */
+            $proveedor = Proveedor::orderBy('nombre', 'asc')->get();
+            $response = $proveedor;
+
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
     public function all()
     {
@@ -48,8 +71,37 @@ class ProveedorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|numeric',
+            'nombre' => 'required|min:5',
+            'telefono' => 'required|numeric',
+            'direccion' => 'required|min:5',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 442);
+        }
+        try {
+            //instancia
+            $prov = new Proveedor();
+            $prov->id = $request->input('id');
+            $prov->nombre = $request->input('nombre');
+            $prov->telefono = $request->input('telefono');
+            $prov->direccion = $request->input('direccion');
+            $prov->estado = true;
+            //guardar
+            if ($prov->save()) {
+                $response = 'Proveedor registrado';
+                return response()->json($response, 201);
+            } else {
+                $response = 'Error durante la creación';
+                return response()->json($response, 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
+
 
     /**
      * Display the specified resource.
@@ -57,9 +109,16 @@ class ProveedorController extends Controller
      * @param  \App\Models\Proveedor  $proveedor
      * @return \Illuminate\Http\Response
      */
-    public function show(Proveedor $proveedor)
+    public function show($id)
     {
-        //
+        try {
+            //Obtener un producto
+            $prov = Proveedor::where('id', $id)->first();
+            $response = $prov;
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**
@@ -80,9 +139,15 @@ class ProveedorController extends Controller
      * @param  \App\Models\Proveedor  $proveedor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Proveedor $proveedor)
+    public function update(Request $request, $id)
     {
-        //
+        $id = $request->input('id');
+        $prov = Proveedor::find($id);
+        $prov->nombre = $request->input('nombre');
+        $prov->direccion = $request->input('direccion');
+        $prov->estado = $request->input('estado');
+        $prov->telefono = $request->input('telefono');
+        $prov->save();
     }
 
     /**

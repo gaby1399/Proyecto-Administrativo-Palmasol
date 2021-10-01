@@ -5,8 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\RolController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +36,20 @@ Route::group(['prefix' => 'palmasol'], function () {
     });
 
     Route::group([
+        'prefix' => 'usuario'
+    ], function ($router) {
+        Route::get('todos', [UsuarioController::class, 'all']);
+        Route::post('actualizar', [UsuarioController::class, 'updatePassword']);
+        Route::delete('eliminar/{id}', [UsuarioController::class, 'delete']);
+    });
+
+    Route::group([
+        'prefix' => 'rol'
+    ], function ($router) {
+        Route::get('', [RolController::class, 'index']);
+    });
+
+    Route::group([
         'prefix' => 'empleado'
     ], function ($router) {
         Route::get('todos', [EmpleadoController::class, 'all']);
@@ -54,9 +70,19 @@ Route::group(['prefix' => 'palmasol'], function () {
         Route::patch('modificar/{id}', [ClienteController::class, 'update']); //->middleware(['auth:api', 'scopes:administrador']);
         Route::get('/{id}', [ClienteController::class, 'show']); //->middleware(['auth:api', 'scopes:administrador']);
     });
+<<<<<<< HEAD
     Route::group(['prefix' => 'material'], function ($router) {
         Route::get('', [MaterialController::class, 'index']);
         Route::get('all', [MaterialController::class, 'all']);
+=======
+
+    Route::group(['prefix' => 'material'], function ($router) {
+        Route::get('', [MaterialController::class, 'index']);
+        Route::get(
+            'all',
+            [MaterialController::class, 'all']
+        );
+>>>>>>> Gaby
         Route::post('', [MaterialController::class, 'store']);
         Route::patch(
             '/{id}',
@@ -67,9 +93,20 @@ Route::group(['prefix' => 'palmasol'], function () {
         );
         Route::get('/{id}', [MaterialController::class, 'show']);
     });
+<<<<<<< HEAD
     Route::group(['prefix' => 'proveedor'], function ($router) {
         Route::get('', [ProveedorController::class, 'index']);
         Route::get('all', [ProveedorController::class, 'all']);
+=======
+
+
+    Route::group(['prefix' => 'proveedor'], function ($router) {
+        Route::get('', [ProveedorController::class, 'index']);
+        Route::get(
+            'all',
+            [ProveedorController::class, 'all']
+        );
+>>>>>>> Gaby
         Route::post('', [ProveedorController::class, 'store']);
         Route::patch(
             '/{id}',
@@ -80,5 +117,8 @@ Route::group(['prefix' => 'palmasol'], function () {
         );
         Route::get('/{id}', [ProveedorController::class, 'show']);
     });
+<<<<<<< HEAD
 
+=======
+>>>>>>> Gaby
 });

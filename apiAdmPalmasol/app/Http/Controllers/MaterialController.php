@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Material;
 use Illuminate\Http\Request;
+use Validator;
+use Input;
 
 class MaterialController extends Controller
 {
@@ -14,14 +16,32 @@ class MaterialController extends Controller
      */
     public function index()
     {
+<<<<<<< HEAD
 
     }
+=======
+        try {
+
+            //where('state', true)
+            $material = Material::where('estado', true)->orderBy('nombre', 'asc')->with(["proveedor"])->get();
+            $response = $material;
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
+    }
+
+>>>>>>> Gaby
     public function all()
     {
         try {
             /*  Listado de materiales
             */
+<<<<<<< HEAD
             $materiales = Material::where('estado', true)->orderBy('nombre', 'asc')->with(["proveedor"])->get();
+=======
+            $materiales = Material::orderBy('nombre', 'asc')->with(["proveedor"])->get();
+>>>>>>> Gaby
             $response = $materiales;
 
             return response()->json($response, 200);
@@ -48,8 +68,37 @@ class MaterialController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|numeric',
+            'nombre' => 'required|min:5',
+            'costo' => 'required|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 442);
+        }
+        try {
+            //instancia
+            $mat = new Material();
+            $mat->id = $request->input('id');
+            $mat->nombre = $request->input('nombre');
+            $mat->costo = $request->input('costo');
+            $mat->proveedor_id = $request->input('proveedor_id');
+            $mat->estado = true;
+            //guardar
+            if ($mat->save()) {
+                $response = 'Material registrado';
+                return response()->json($response, 201);
+            } else {
+                $response = 'Error durante la creación';
+                return response()->json($response, 404);
+            }
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
+
+
 
     /**
      * Display the specified resource.
@@ -57,9 +106,16 @@ class MaterialController extends Controller
      * @param  \App\Models\Material  $material
      * @return \Illuminate\Http\Response
      */
-    public function show(Material $material)
+    public function show($id)
     {
-        //
+        try {
+            //Obtener un producto
+            $mat = Material::where('id', $id)->with(["proveedor",])->first();
+            $response = $mat;
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**
@@ -80,9 +136,15 @@ class MaterialController extends Controller
      * @param  \App\Models\Material  $material
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Material $material)
+    public function update(Request $request, $id)
     {
-        //
+        $id = $request->input('id');
+        $mat = Material::find($id);
+        $mat->nombre = $request->input('nombre');
+        $mat->costo = $request->input('costo');
+        $mat->estado = $request->input('estado');
+        $mat->proveedor_id = $request->input('proveedor_id');
+        $mat->save();
     }
 
     /**

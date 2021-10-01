@@ -18,7 +18,7 @@ class CreateCalMaterialsTable extends Migration
             $table->integer('toneladas');
             $table->integer('area');
             $table->integer('calculo');
-            $table->integer('material_id');
+            $table->unsignedBigInteger('material_id');
             $table->unsignedInteger('presupuesto_id');
             $table->foreign('material_id')->references('id')->on('materials');
             $table->foreign('presupuesto_id')->references('id')->on('presupuestos');
