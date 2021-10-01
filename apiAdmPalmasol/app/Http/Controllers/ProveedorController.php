@@ -25,22 +25,6 @@ class ProveedorController extends Controller
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 422);
         }
-<<<<<<< HEAD
-    }
-    public function all()
-    {
-        try {
-            /*  Listado de proveedores
-            */
-            $proveedor = Proveedor::orderBy('nombre', 'asc')->get();
-            $response = $proveedor;
-
-            return response()->json($response, 200);
-        } catch (\Exception $e) {
-            return response()->json($e->getMessage(), 422);
-        }
-=======
->>>>>>> 0627be479b490ba4119c177e959fa24094889b5f
     }
     public function all()
     {
@@ -147,15 +131,9 @@ class ProveedorController extends Controller
         $id = $request->input('id');
         $prov = Proveedor::find($id);
         $prov->nombre = $request->input('nombre');
-<<<<<<< HEAD
         $prov->direccion = $request->input('direccion');
         $prov->estado = $request->input('estado');
         $prov->telefono = $request->input('telefono');
-=======
-        $prov->direccion= $request->input('direccion');
-        $prov->estado = $request->input('estado');
-        $prov->telefono= $request->input('telefono');
->>>>>>> 0627be479b490ba4119c177e959fa24094889b5f
         $prov->save();
     }
 

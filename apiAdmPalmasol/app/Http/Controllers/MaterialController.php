@@ -16,22 +16,6 @@ class MaterialController extends Controller
      */
     public function index()
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-        try {
->>>>>>> 0627be479b490ba4119c177e959fa24094889b5f
-
-            //where('state', true)
-            $material = Material::where('estado', true)->orderBy('nombre', 'asc')-> with(["proveedor"])->get();
-            $response = $material;
-            return response()->json($response, 200);
-        } catch (\Exception $e) {
-            return response()->json($e->getMessage(), 422);
-        }
-    }
-<<<<<<< HEAD
-=======
         try {
 
             //where('state', true)
@@ -43,24 +27,12 @@ class MaterialController extends Controller
         }
     }
 
->>>>>>> Gaby
-=======
-
->>>>>>> 0627be479b490ba4119c177e959fa24094889b5f
     public function all()
     {
         try {
             /*  Listado de materiales
             */
-<<<<<<< HEAD
-<<<<<<< HEAD
-            $materiales = Material::where('estado', true)->orderBy('nombre', 'asc')->with(["proveedor"])->get();
-=======
             $materiales = Material::orderBy('nombre', 'asc')->with(["proveedor"])->get();
->>>>>>> Gaby
-=======
-            $materiales = Material::orderBy('nombre', 'asc')->with(["proveedor"])->get();
->>>>>>> 0627be479b490ba4119c177e959fa24094889b5f
             $response = $materiales;
 
             return response()->json($response, 200);
@@ -129,11 +101,7 @@ class MaterialController extends Controller
     {
         try {
             //Obtener un producto
-<<<<<<< HEAD
             $mat = Material::where('id', $id)->with(["proveedor",])->first();
-=======
-            $mat = Material::where('id', $id)->with(["proveedor", ])->first();
->>>>>>> 0627be479b490ba4119c177e959fa24094889b5f
             $response = $mat;
             return response()->json($response, 200);
         } catch (\Exception $e) {
@@ -163,11 +131,7 @@ class MaterialController extends Controller
     {
         $id = $request->input('id');
         $mat = Material::find($id);
-<<<<<<< HEAD
         $mat->nombre = $request->input('nombre');
-=======
-        $mat->nombre =$request->input('nombre');
->>>>>>> 0627be479b490ba4119c177e959fa24094889b5f
         $mat->costo = $request->input('costo');
         $mat->estado = $request->input('estado');
         $mat->proveedor_id = $request->input('proveedor_id');
