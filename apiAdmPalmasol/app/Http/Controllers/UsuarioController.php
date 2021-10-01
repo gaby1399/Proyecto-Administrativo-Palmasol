@@ -29,7 +29,7 @@ class UsuarioController extends Controller
             $usuario = Usuario::where('id', $id)->first();
 
             if ($usuario->delete()) {
-                $response = 'Usuario eliminado!';
+                $response = true;
                 return response()->json($response, 200);
             }
             $response = ['msg' => 'Error durante la eliminación'];
@@ -54,7 +54,7 @@ class UsuarioController extends Controller
             $usuario = Usuario::where('email', $request['email'])->orderBy('id', 'asc')->first();
 
             if ($usuario == null) {
-                $response =false;
+                $response = false;
                 return response()->json($response, 200);
             }
 

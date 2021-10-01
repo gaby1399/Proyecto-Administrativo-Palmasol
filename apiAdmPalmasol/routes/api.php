@@ -39,7 +39,7 @@ Route::group(['prefix' => 'palmasol'], function () {
     ], function ($router) {
         Route::get('todos', [UsuarioController::class, 'all']);
         Route::post('actualizar', [UsuarioController::class, 'updatePassword']);
-        Route::post('eliminar/{id}', [UsuarioController::class, 'delete']);
+        Route::delete('eliminar/{id}', [UsuarioController::class, 'delete']);
     });
 
     Route::group([
