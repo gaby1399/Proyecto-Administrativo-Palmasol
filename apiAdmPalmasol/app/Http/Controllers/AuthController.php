@@ -33,7 +33,7 @@ class AuthController extends Controller
             $request['remember_token'] = Str::random(10);
             //Agregar rol_id en Model User a la propiedad $fillable
             $user = Usuario::create($request->toArray());
-          //  $user->rememberToken = $rem;
+        
             Auth::login($user);
             $scope = $user->rol->descripcion;
             $token = $user->createToken($user->email . '-' . now(), [$scope]);
