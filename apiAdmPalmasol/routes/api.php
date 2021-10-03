@@ -5,10 +5,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\ProveedorController;
+<<<<<<< HEAD
 use App\Http\Controllers\UsuarioController;
 
+=======
+use App\Http\Controllers\RolController;
+>>>>>>> 99bc27884dafdadc4614307fbc5026dd22ed0e1a
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -32,6 +37,20 @@ Route::group(['prefix' => 'palmasol'], function () {
         Route::post('registrar', [AuthController::class, 'register']);
         Route::post('inicio', [AuthController::class, 'login']);
         Route::post('cerrar', [AuthController::class, 'logout']);
+    });
+
+    Route::group([
+        'prefix' => 'usuario'
+    ], function ($router) {
+        Route::get('todos', [UsuarioController::class, 'all']);
+        Route::post('actualizar', [UsuarioController::class, 'updatePassword']);
+        Route::delete('eliminar/{id}', [UsuarioController::class, 'delete']);
+    });
+
+    Route::group([
+        'prefix' => 'rol'
+    ], function ($router) {
+        Route::get('', [RolController::class, 'index']);
     });
 
     Route::group([
@@ -90,8 +109,11 @@ Route::group(['prefix' => 'palmasol'], function () {
         );
         Route::get('/{id}', [ProveedorController::class, 'show']);
     });
+<<<<<<< HEAD
     Route::group(['prefix' => 'usuario'], function ($router) {
         Route::get('', [UsuarioController::class, 'index']);
     });
 
+=======
+>>>>>>> 99bc27884dafdadc4614307fbc5026dd22ed0e1a
 });

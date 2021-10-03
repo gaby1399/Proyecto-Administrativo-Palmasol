@@ -46,7 +46,15 @@ class ProveedorSeeder extends Seeder
         $proveedor->nombre = 'Elsa Murillo';
         $proveedor->telefono = '84159923';
         $proveedor->direccion = 'Alajuela';
+<<<<<<< HEAD
         $proveedor->estado = 1;
+=======
+<<<<<<< HEAD
+        $proveedor->estado = true;
+=======
+        $proveedor->estado = false;
+>>>>>>> Gaby
+>>>>>>> 99bc27884dafdadc4614307fbc5026dd22ed0e1a
         $proveedor->save();
     }
 }
