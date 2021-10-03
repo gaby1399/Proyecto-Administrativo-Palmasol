@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< HEAD
 use App\Models\User;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
@@ -14,21 +13,8 @@ class UsuarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        try {
-            $users = Usuario::all();
-            $response = $users;
-            return response()->json($response, 200);
-        } catch (Exception $e) {
-=======
-use App\Models\Usuario;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
 
-class UsuarioController extends Controller
-{
+
     public function all()
     {
         try {
@@ -38,13 +24,11 @@ class UsuarioController extends Controller
 
             return response()->json($response, 200);
         } catch (\Exception $e) {
->>>>>>> 99bc27884dafdadc4614307fbc5026dd22ed0e1a
+
             return response()->json($e->getMessage(), 422);
         }
     }
 
-<<<<<<< HEAD
-=======
     public function delete($id)
     {
         try {
@@ -101,5 +85,4 @@ class UsuarioController extends Controller
             return response()->json($e->getMessage(), 422);
         }
     }
->>>>>>> 99bc27884dafdadc4614307fbc5026dd22ed0e1a
 }
