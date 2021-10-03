@@ -113,7 +113,6 @@ Route::group(['prefix' => 'palmasol'], function () {
     Route::group(['prefix' => 'usuario'], function ($router) {
         Route::get('', [UsuarioController::class, 'index']);
     });
-
 =======
 >>>>>>> 99bc27884dafdadc4614307fbc5026dd22ed0e1a
 });

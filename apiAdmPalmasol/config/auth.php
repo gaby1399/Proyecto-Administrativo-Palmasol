@@ -51,7 +51,7 @@ return [
     'api' => [
         'driver' => 'passport',
         'provider' => 'usuarios',
-        'hash' => false,
+        'hash' => false
 >>>>>>> 99bc27884dafdadc4614307fbc5026dd22ed0e1a
     ],
     /*
