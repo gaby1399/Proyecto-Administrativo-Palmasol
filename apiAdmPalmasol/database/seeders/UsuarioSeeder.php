@@ -14,11 +14,12 @@ class UsuarioSeeder extends Seeder
     public function run()
     {
         //1
-        $usuario = new \App\Models\Usuario();
-        $usuario->id = 1;
-        $usuario->email="empresapalmasol@admin.com";
-        $usuario->password = 'adm123';
-        $usuario->rol_id = 1;
+        $usuario = \App\Models\Usuario::create([
+            'id' => 1,
+            'email'=> 'empresapalmasol@admin.com',
+            'password' => bcrypt('adm123'),
+            'rol_id' => 1
+        ]);
         $usuario->save();
     }
 }

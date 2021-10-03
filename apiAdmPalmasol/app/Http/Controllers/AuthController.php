@@ -30,9 +30,8 @@ class AuthController extends Controller
             //Formato de password
             // $request['password'] = $request['contraseña'];
             $request['password'] = Hash::make($request['password']);
-            $request['rememberToken'] = Str::random(10);
+            $request['remember_token'] = Str::random(10);
             //Agregar rol_id en Model User a la propiedad $fillable
-            $rem = $request['rememberToken'];
             $user = Usuario::create($request->toArray());
           //  $user->rememberToken = $rem;
             Auth::login($user);
@@ -40,10 +39,9 @@ class AuthController extends Controller
             $token = $user->createToken($user->email . '-' . now(), [$scope]);
             //Respuesta con token
             $response = [
-                'usuario' => Auth::user(),
-                'token' => $token->accessToken,
-                'data' => $rem,
-            ];
+                'user' => Auth::user(),
+                'token' => $token->accessToken
+                       ];
 
             return
                 response()->json($response, 200);
@@ -59,6 +57,8 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:6',
         ]);
+
+
         //Retornar mensajes de validación
         if ($validator->fails()) {
             return response()->json($validator->messages(), 422);
@@ -72,13 +72,14 @@ class AuthController extends Controller
             if (Auth::attempt($credentials)) {
                 $user = Usuario::where('email', $request->email)->with('rol')->first();
                 $scope = $user->rol->descripcion;
-                $token = $user->createToken($user->email . '-' . now(), [$scope])->accessToken;
+                $token = $user->createToken($user->email . '-' . now(), [$scope]);
 
                 $response = [
-                    'usuario' => Auth::user(),
-                    'token' => $token,
+                    'user' => Auth::user(),
+                    'token' => $token->accessToken
                 ];
                 return
+                    $response = ["Login correcto"];
                     response()->json($response, 200);
             } else {
                 $response = ["message" => 'El usuario no existe'];

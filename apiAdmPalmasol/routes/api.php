@@ -7,6 +7,7 @@ use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\UsuarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,4 +90,8 @@ Route::group(['prefix' => 'palmasol'], function () {
         );
         Route::get('/{id}', [ProveedorController::class, 'show']);
     });
+    Route::group(['prefix' => 'usuario'], function ($router) {
+        Route::get('', [UsuarioController::class, 'index']);
+    });
+
 });
