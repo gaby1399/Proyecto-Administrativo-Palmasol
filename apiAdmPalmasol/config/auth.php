@@ -31,7 +31,7 @@ return [
     | users are actually retrieved out of your database or other storage
     | mechanisms used by this application to persist your user's data.
     |
-    | Supported: "session"
+    | Supported: "session", "token"
     |
     */
 
@@ -41,19 +41,13 @@ return [
             'provider' => 'users',
         ],
 
-<<<<<<< HEAD
         'api' => [
             'driver' => 'passport',
             'provider' => 'users',
             'hash' => false,
         ],
-=======
-    'api' => [
-        'driver' => 'passport',
-        'provider' => 'usuarios',
-        'hash' => false
->>>>>>> 99bc27884dafdadc4614307fbc5026dd22ed0e1a
     ],
+
     /*
     |--------------------------------------------------------------------------
     | User Providers
@@ -97,7 +91,7 @@ return [
     | they have less time to be guessed. You may change this as needed.
     |
     */
-    // 'passwords'
+
     'passwords' => [
         'users' => [
             'provider' => 'users',

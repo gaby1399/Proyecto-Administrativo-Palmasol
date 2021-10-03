@@ -2,19 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-
     public function all()
     {
         try {
@@ -24,7 +18,6 @@ class UsuarioController extends Controller
 
             return response()->json($response, 200);
         } catch (\Exception $e) {
-
             return response()->json($e->getMessage(), 422);
         }
     }

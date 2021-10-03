@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)//Crear
+    public function register(Request $request)
     {
         //Reglas de validación
         $validator = Validator::make($request->all(), [
@@ -33,12 +33,7 @@ class AuthController extends Controller
             $request['remember_token'] = Str::random(10);
             //Agregar rol_id en Model User a la propiedad $fillable
             $user = Usuario::create($request->toArray());
-<<<<<<< HEAD
-<<<<<<< HED
           //  $user->rememberToken = $rem;
-=======
-        
->>>>>>> Karla
             Auth::login($user);
             $scope = $user->rol->descripcion;
             $token = $user->createToken($user->email . '-' . now(), [$scope]);
@@ -47,19 +42,6 @@ class AuthController extends Controller
                 'user' => Auth::user(),
                 'token' => $token->accessToken
                        ];
-=======
-            // $user->remember_token = $rem;
-            Auth::login($user);
-            $scope = $user->rol->descripcion;
-            $token = $user->createToken($user->email . '-' . now(), [$scope]);
-            //->token
-            //Respuesta con token
-            $response = [
-                'usuario' => Auth::user(),
-                'token' => $token->accessToken,
-                'data' => $rem,
-            ];
->>>>>>> 99bc27884dafdadc4614307fbc5026dd22ed0e1a
 
             return
                 response()->json($response, 200);
